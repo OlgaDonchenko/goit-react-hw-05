@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import SearchBar from "../../components/Searcher/Searcher";
-import { searchMovies, getTrendMovies } from "../../movies-api";
+import { searchMovies } from "../../movies-api";
+import { toast } from "react-hot-toast";
 import MovieList from "../../components/MovieList/MovieList";
 // import css from "./MoviesPage.module.css";
 
@@ -14,18 +15,18 @@ export default function MoviesPage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!query) return;
       try {
         setLoading(true);
-        let data;
-        if (query) {
-          data = await searchMovies(query, page);
-        } else {
-          data = await getTrendMovies(page);
+        const data = await searchMovies(query, page);
+        if (data.length === 0) {
+          toast.error("No movies found with this query");
         }
         setMovies(data);
-        setTotalPages(data.total_pages);
+        setTotalPages(data.total_pages || 0);
       } catch (error) {
         console.error("Error fetching movies:", error);
+        toast.error("Failed to fetch movies");
       } finally {
         setLoading(false);
       }
@@ -50,8 +51,9 @@ export default function MoviesPage() {
     <div>
       <SearchBar onSubmit={handleSearch} />
       {loading && <p>Loading movies...</p>}
-      {!loading && <MovieList movies={movies} />}
-      {!loading && totalPages > 1 && (
+      {!loading && query && movies.length > 0 && <MovieList movies={movies} />}
+      {!loading && query && movies.length === 0 && <p> No results found</p>}
+      {!loading && query && totalPages > 1 && (
         <ReactPaginate
           previousLabel={"previous"}
           nextLabel={"next"}
