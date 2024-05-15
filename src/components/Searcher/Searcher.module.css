@@ -1,0 +1,17 @@
+.box {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.form {
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  padding: 16px;
+}
+.btn {
+  display: inline-flex;
+  background-color: azure;
+}
