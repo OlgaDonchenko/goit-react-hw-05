@@ -1,0 +1,7 @@
+.castReview {
+  display: flex;
+  gap: 24px;
+}
+.active {
+  color: red;
+}

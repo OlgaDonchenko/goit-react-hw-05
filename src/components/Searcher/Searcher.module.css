@@ -3,7 +3,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
 }
 .form {
   margin: 0 auto;
@@ -13,5 +12,6 @@
 }
 .btn {
   display: inline-flex;
-  background-color: azure;
+  background-color: rgb(64, 8, 216);
+  width: 160px;
 }
