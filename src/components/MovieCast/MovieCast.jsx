@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieCastById } from "../../movies-api";
 import MovieCastItem from "../MovieCastItem/MovieCastItem";
+import css from "./MovieCast.module.css";
 
 export default function MovieCast() {
   const { movieId } = useParams();
@@ -29,7 +30,7 @@ export default function MovieCast() {
     <div>
       {loading && <p>Loading ... </p>}
       {cast && (
-        <ul>
+        <ul className={css.castList}>
           {cast.map((cast) => (
             <li key={cast.id}>
               <MovieCastItem data={cast} />

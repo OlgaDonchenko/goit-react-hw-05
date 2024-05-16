@@ -11,8 +11,10 @@ import css from "./App.module.css";
 export default function App() {
   return (
     <Router>
-      <div className={css.container}>
-        <Navigation />
+      <>
+        <header className={css.container}>
+          <Navigation />
+        </header>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
@@ -22,7 +24,7 @@ export default function App() {
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </div>
+      </>
     </Router>
   );
 }

@@ -15,7 +15,7 @@ export default function SearchBar({ onSubmit }) {
   };
 
   return (
-    <header className={css.box}>
+    <div className={css.box}>
       <Formik initialValues={{ search: "" }} onSubmit={handleSubmit}>
         <Form className={css.form}>
           <Field
@@ -30,6 +30,6 @@ export default function SearchBar({ onSubmit }) {
           </button>
         </Form>
       </Formik>
-    </header>
+    </div>
   );
 }

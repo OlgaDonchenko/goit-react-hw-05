@@ -25,10 +25,10 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div>
+    <main>
       <h1>Trending Movies</h1>
       {loading && <Loader />}
       <MovieList movies={movies} />
-    </div>
+    </main>
   );
 }

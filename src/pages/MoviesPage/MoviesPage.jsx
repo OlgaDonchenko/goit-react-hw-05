@@ -48,25 +48,27 @@ export default function MoviesPage() {
   };
 
   return (
-    <div>
-      <SearchBar onSubmit={handleSearch} />
-      {loading && <p>Loading movies...</p>}
-      {!loading && query && movies.length > 0 && <MovieList movies={movies} />}
-      {!loading && query && movies.length === 0 && <p> No results found</p>}
-      {!loading && query && totalPages > 1 && (
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={totalPages}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={css.pagination}
-          activeClassName={css.active}
-        />
-      )}
-    </div>
+    <main>
+      <section>
+        <SearchBar onSubmit={handleSearch} />
+        {loading && <p>Loading movies...</p>}
+        {!loading && query && movies.length > 0 && (
+          <MovieList movies={movies} />
+        )}
+        {!loading && query && movies.length === 0 && <p> No results found</p>}
+        {!loading && query && totalPages > 1 && (
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+          />
+        )}
+      </section>
+    </main>
   );
 }

@@ -5,3 +5,21 @@
 .active {
   color: red;
 }
+
+.wrapper {
+  display: flex;
+  gap: 28px;
+
+  justify-content: space-between;
+}
+.containerDeteilsPage {
+  margin: 0 auto;
+  padding: 16px;
+}
+.box {
+  margin-top: 16px;
+}
+.boxInfo {
+  margin: 0 auto;
+  padding: 16px;
+}
