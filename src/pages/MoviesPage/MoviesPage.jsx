@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import SearchBar from "../../components/Searcher/Searcher";
 import { searchMovies } from "../../movies-api";
 import { toast } from "react-hot-toast";
 import MovieList from "../../components/MovieList/MovieList";
-// import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get("query") || "";
+  const page = parseInt(searchParams.get("page"), 10) || 1;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +24,7 @@ export default function MoviesPage() {
         if (data.length === 0) {
           toast.error("No movies found with this query");
         }
-        setMovies(data);
+        setMovies(data.results || []);
         setTotalPages(data.total_pages || 0);
       } catch (error) {
         console.error("Error fetching movies:", error);
@@ -37,13 +39,12 @@ export default function MoviesPage() {
 
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
-    setPage(selectedPage);
+    setSearchParams({ query, page: selectedPage });
   };
 
   const handleSearch = (searchQuery) => {
     if (searchQuery !== query) {
-      setQuery(searchQuery);
-      setPage(1);
+      setSearchParams({ query: searchQuery, page: 1 });
     }
   };
 
@@ -55,7 +56,7 @@ export default function MoviesPage() {
         {!loading && query && movies.length > 0 && (
           <MovieList movies={movies} />
         )}
-        {!loading && query && movies.length === 0 && <p> No results found</p>}
+        {!loading && query && movies.length === 0 && <p>No results found</p>}
         {!loading && query && totalPages > 1 && (
           <ReactPaginate
             previousLabel={"previous"}
