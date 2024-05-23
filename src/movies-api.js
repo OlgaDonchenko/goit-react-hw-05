@@ -55,7 +55,11 @@ export const searchMovies = async (query, page = 1) => {
     const response = await api.get(
       `/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`
     );
-    return response.data.results;
+    const results = response.data.results;
+    if (!Array.isArray(results)) {
+      throw new Error("Invalid data structure");
+    }
+    return response.data; // Повертаємо повний об'єкт data
   } catch (error) {
     console.error(
       `Error searching movies with query "${query}":`,

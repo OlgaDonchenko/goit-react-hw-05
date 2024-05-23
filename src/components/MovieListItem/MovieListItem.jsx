@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function MovieItem({ movie: { id, title } }) {
+export default function MovieListItem({ movie: { id, title } }) {
   const location = useLocation();
 
   return (
